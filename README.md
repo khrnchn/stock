@@ -1,2 +1,2 @@
-# stock
+# Stock Management System
 a filament-based stock management system, developed for subject Software Quality Assurance. 
