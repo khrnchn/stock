@@ -13,7 +13,7 @@
 
 ## About <a name = "about"></a>
 
-A Filament-based Stock Management System by our group for subject Software Quality Assurance. Developed using the Laravel framework.
+A Stock Management System (from Filament demo) by our group for subject Software Quality Assurance. Developed using the Laravel framework.
 
 ## Getting Started <a name = "getting_started"></a>
 
