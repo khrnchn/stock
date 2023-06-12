@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'path' => env('FILAMENT_PATH', '/'),
+    'path' => env('FILAMENT_PATH', '/admin'),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,9 @@ return [
         'max_content_width' => null,
         'sidebar' => [
             'is_collapsible_on_desktop' => true,
+        ],
+        'footer' => [
+            'should_show_logo' => false,
         ],
         'forms' => [
             'actions' => [

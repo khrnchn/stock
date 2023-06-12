@@ -167,6 +167,7 @@ class ProductResource extends Resource
 
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
+                    ->limit(40)
                     ->searchable()
                     ->sortable(),
 

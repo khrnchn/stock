@@ -3,12 +3,15 @@
 namespace App\Filament\Resources\Shop\OrderResource\Pages;
 
 use App\Filament\Resources\Shop\OrderResource;
+use App\Models\Shop\Order;
+use App\Models\Shop\Product;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\HasWizard;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateOrder extends CreateRecord
 {
@@ -20,14 +23,24 @@ class CreateOrder extends CreateRecord
     {
         $order = $this->record;
 
+        foreach ($order->items as $item) {
+            $qty = Product::where('id', $item->shop_product_id)->value('qty');
+
+            if ($item->qty > $qty) {
+                Notification::make()
+                    ->title('Less than available stock!')
+                    ->icon('heroicon-o-shopping-bag')
+                    ->body("**{$order->customer->name} ordered {$order->items->count()} products.**")
+                    ->sendToDatabase(auth()->user());
+
+                $this->halt();
+            }
+        }
+
         Notification::make()
             ->title('New order')
             ->icon('heroicon-o-shopping-bag')
             ->body("**{$order->customer->name} ordered {$order->items->count()} products.**")
-            ->actions([
-                Action::make('View')
-                    ->url(OrderResource::getUrl('edit', ['record' => $order])),
-            ])
             ->sendToDatabase(auth()->user());
     }
 
